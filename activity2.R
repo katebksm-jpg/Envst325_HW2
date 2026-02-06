@@ -44,3 +44,30 @@ floodcat <- floods%>%
   filter(gheight.ft >= flood.ft) %>%
   group_by(names)%>%
   summarise(min_date=min(dateF))
+
+
+# Homework Prompts --------------------------------------------------------
+#question 1: Make a separate plot of the stream stage data for each river.
+#subset stream stage data for Fisheating Creek
+FishE <- streamH %>%
+  filter(siteID == 2256500)
+
+#make plot for FishE
+plot(FishE$dateF, FishE$gheight.ft, type="b", pch=19, 
+     main = "Fisheating Creek Stage Height", 
+     xlab="Date", ylab="Stream Stage (ft)")
+#make plot for Peace River
+plot(peaceH$dateF, peaceH$gheight.ft, type="b", pch=19, main ="Peace River Stage Height", 
+     xlab="Date", ylab="Stream Stage (ft)")
+#make plot for Santa Fe River
+#first subset strem stage data for Santa Fe River
+SantaFe <- streamH %>%
+  filter(siteID==2322500)
+plot(SantaFe$dateF, SantaFe$gheight.ft, type="b", pch=19, main = "Santa Fe River Stage Height", xlab="date", ylab="Stream Stage (ft)")
+#make plot for WITHLACOOCHEE
+#first subset data
+Withla <- streamH %>%
+  filter(siteID == 2312000)
+plot(Withla$dateF, Withla$gheight.ft, 
+     type="b", pch=10, main="Withlacoochee River Stage Height", 
+     xlab="date", ylab="Stream Stage (ft)")
