@@ -76,7 +76,7 @@ plot(Withla$dateF, Withla$gheight.ft,
 #create a new data frame that shows when each river reached the flood category
 Stages <- floods%>%
   group_by(names)%>%
-  summarise(Action=min(dateF[gheight.ft >= action.ft] na.rm = T),
+  summarise(Action=min(dateF[gheight.ft >= action.ft]),
             Flood=min(dateF[gheight.ft >= flood.ft]), 
             Moderate=min(dateF[gheight.ft >= moderate.ft]),
             Major=min(dateF[gheight.ft >= major.ft]))
