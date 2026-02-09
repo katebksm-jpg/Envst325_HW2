@@ -71,3 +71,20 @@ Withla <- streamH %>%
 plot(Withla$dateF, Withla$gheight.ft, 
      type="b", pch=10, main="Withlacoochee River Stage Height", 
      xlab="date", ylab="Stream Stage (ft)")
+
+# Question 2 
+#create a new data frame that shows when each river reached the flood category
+Stages <- floods%>%
+  group_by(names)%>%
+  summarise(Action=min(dateF[gheight.ft >= action.ft]),
+            Flood=min(dateF[gheight.ft >= flood.ft]), 
+            Moderate=min(dateF[gheight.ft >= moderate.ft]),
+            Major=min(dateF[gheight.ft >= major.ft]))
+
+# Question 3
+
+MaxMajor <- floods%>%
+  filter(gheight.ft>major.ft)%>%
+  group_by(names)%>%
+  summarise(maxheight=max(gheight.ft))
+
