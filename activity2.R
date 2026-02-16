@@ -81,6 +81,7 @@ Stages <- floods%>%
             Moderate=min(dateF[gheight.ft >= moderate.ft]),
             Major=min(dateF[gheight.ft >= major.ft]))
 
+
 # Question 3
 
 MaxMajor <- floods%>%
@@ -89,5 +90,20 @@ MaxMajor <- floods%>%
   summarise(maxheight=max(gheight.ft))
 #find largest difference 
 difference <- MaxMajor$maxheight-MaxMajor$major.ft
-  
+
+#find max height at Santa Fe to add to table
+MaxSantaFe <- floods%>%
+  filter(siteID==2322500)%>%
+  summarise(max(gheight.ft))
+
+#example - select function
+select(Stages, names, Action)
+
+#example - ifelse function
+ifelse(SantaFe$gheight.ft>22, "action", "noflood")
+
+#example - hist function 
+hist(peaceH$gheight.ft, breaks = 12, 
+     main="Peace River Stage Height",
+     xlab = "Stage Height (ft)")
 
