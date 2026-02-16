@@ -11,6 +11,7 @@ siteInfo <- read.csv("/cloud/project/activity02/site_info.csv")
 streamH$dateF <- ymd_hm(streamH$datetime)
 streamH$date <- year(streamH$datetime)
 
+#in class prompts 
 
 peaceH <- streamH %>%
   filter(siteID == 2295637)
@@ -48,6 +49,7 @@ floodcat <- floods%>%
 
 # Homework Prompts --------------------------------------------------------
 #question 1: Make a separate plot of the stream stage data for each river.
+
 #subset stream stage data for Fisheating Creek
 FishE <- streamH %>%
   filter(siteID == 2256500)
@@ -56,24 +58,32 @@ FishE <- streamH %>%
 plot(FishE$dateF, FishE$gheight.ft, type="b", pch=19, 
      main = "Fisheating Creek Stage Height", 
      xlab="Date", ylab="Stream Stage (ft)")
+
 #make plot for Peace River
 plot(peaceH$dateF, peaceH$gheight.ft, type="b", pch=19, main ="Peace River Stage Height", 
      xlab="Date", ylab="Stream Stage (ft)")
+
 #make plot for Santa Fe River
-#first subset strem stage data for Santa Fe River
+#first subset stream stage data for Santa Fe River
 SantaFe <- streamH %>%
   filter(siteID==2322500)
-plot(SantaFe$dateF, SantaFe$gheight.ft, type="b", pch=19, main = "Santa Fe River Stage Height", xlab="date", ylab="Stream Stage (ft)")
+#make plot 
+plot(SantaFe$dateF, SantaFe$gheight.ft, type="b", 
+     pch=19, main = "Santa Fe River Stage Height", 
+     xlab="date", ylab="Stream Stage (ft)")
+
 #make plot for WITHLACOOCHEE
 #first subset data
 Withla <- streamH %>%
   filter(siteID == 2312000)
+#next make plot
 plot(Withla$dateF, Withla$gheight.ft, 
      type="b", pch=10, main="Withlacoochee River Stage Height", 
      xlab="date", ylab="Stream Stage (ft)")
 
 # Question 2 
 #create a new data frame that shows when each river reached the flood category
+#create new data frame that shows when gheight is greater than each category
 Stages <- floods%>%
   group_by(names)%>%
   summarise(Action=min(dateF[gheight.ft >= action.ft]),
@@ -82,19 +92,22 @@ Stages <- floods%>%
             Major=min(dateF[gheight.ft >= major.ft]))
 
 
-# Question 3
-
+# Question 3 - finding which river had highest stream stage above listed major category height
+#filter for heights greater than the major category 
+#add summarise argument to get the maximum height above major category  
 MaxMajor <- floods%>%
   filter(gheight.ft>major.ft)%>%
   group_by(names, major.ft)%>%
   summarise(maxheight=max(gheight.ft))
-#find largest difference 
+#find largest differencen between height and major category 
 difference <- MaxMajor$maxheight-MaxMajor$major.ft
 
 #find max height at Santa Fe to add to table
 MaxSantaFe <- floods%>%
   filter(siteID==2322500)%>%
   summarise(max(gheight.ft))
+
+#Question 4 - learning functions 
 
 #example - select function
 select(Stages, names, Action)
