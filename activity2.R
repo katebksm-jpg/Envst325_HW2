@@ -1,3 +1,6 @@
+
+# In Class Prompts --------------------------------------------------------
+
 #install packages
 # install.packages(c("dplyr","lubridate"))
 library(dplyr)
@@ -119,4 +122,3 @@ ifelse(SantaFe$gheight.ft>22, "action", "noflood")
 hist(peaceH$gheight.ft, breaks = 12, 
      main="Peace River Stage Height",
      xlab = "Stage Height (ft)")
-
